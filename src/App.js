@@ -4,6 +4,44 @@ import NavBar, { ElementsWrapper } from "react-scrolling-nav";
 import { Unity, useUnityContext } from "react-unity-webgl";
 import SideBar from "./sideBar.js"
 import { Link } from "react-scroll";
+import { Document, Page, pdfjs } from 'react-pdf';
+import React, { useState } from 'react';
+pdfjs.GlobalWorkerOptions.workerSrc = `//cdnjs.cloudflare.com/ajax/libs/pdf.js/${pdfjs.version}/pdf.worker.js`;
+
+
+function PDFFile() {
+  const [numPages, setNumPages] = useState(null);
+  const [pageNumber, setPageNumber] = useState(1);
+  
+
+  function onDocumentLoadSuccess({ numPages }) {
+    setNumPages(numPages);
+  }
+  function goToPrevPage({ pageNumber }) {
+    setPageNumber(pageNumber - 1);
+  }
+  function goToNextPage({ pageNumber }) {
+    setPageNumber(pageNumber + 1);
+  }
+
+
+  return (
+    <div>
+      <nav>
+          <button onClick={this.goToPrevPage}>Prev</button>
+          <button onClick={this.goToNextPage}>Next</button>
+      </nav>
+    <div>
+      <Document file="/TeamSteam_BirdGang_Report.pdf" onLoadSuccess={onDocumentLoadSuccess} onLoadError={console.error}>
+        <Page pageNumber={pageNumber} />
+      </Document>
+      <p>
+        Page {pageNumber} of {numPages}
+      </p>
+    </div>
+    </div>
+  );
+}
 
 function App(){
   const { unityProvider } = useUnityContext({
@@ -38,6 +76,7 @@ function App(){
       <Link activeClass="active" smooth spy to="about">
 
       <h1 id='about_colour'>ABOUT</h1>
+
 
       </Link>
 
@@ -74,11 +113,16 @@ function App(){
 
   <section id="game">
 
-      <Unity style = {{width: "80%", height:"80%", transform: 'translate(-50%, -50%)', position:'absolute', top:'calc(50% + 2rem)', left:'50%', justifySelf:"center", alignSelf:"center",}} unityProvider={unityProvider}/>
+    <Unity style = {{width: "80%", height:"80%", transform: 'translate(-50%, -50%)', position:'absolute', top:'calc(50% + 2rem)', left:'50%', justifySelf:"center", alignSelf:"center",}} unityProvider={unityProvider}/>
 
   </section>
 
-  <section id="about"><h1>ABOUT</h1></section>
+  <section id="about">
+    <h1>ABOUT</h1>
+    <PDFFile/>
+
+  
+  </section>
 
   <section id="team"><h1>THE TEAM</h1></section>
 
