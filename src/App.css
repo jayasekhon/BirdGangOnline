@@ -99,26 +99,38 @@ li:hover {
 }
 
 
-.row {
-  display: flex;
-  flex-direction: row;
-  flex-wrap: wrap;
-  width: 100%;
-}
 
 .column {
   display: flex;
-  flex-direction: column;
-  flex-basis: 100%;
-  flex: 1;
-  padding: 15px
+  flex-wrap: wrap;
+  justify-content: center;
+  background-color: DodgerBlue;
 }
+
 
 .left-column {
   font-size: 20px;
-  font-family: 'Avantgarde', sans-serif;
+  width: 50%;
+  background-color: #ff8827;
+  min-width: 500px;
+  
 }
 
 .right-column {
+  font-size: 20px;
+  width: 50%;
+  background-color: #71c6d4;
+  min-width: 500px;
 
+  
+}
+
+
+.pdf {
+  justify-items: center;
+  align-items: center;
+  margin-left: auto;
+  margin-right: auto;
+  width: 50%;
+  background-color: #74c445;
 }
